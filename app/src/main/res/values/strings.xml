@@ -1,3 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GeoStatApplication</string>
+    <string name="none">-</string>
+    <string name="desa_lorem">Desa Lorem</string>
+    <string name="example_address">RT 011 DUSUN JAYA BINANGUN…</string>
+    <string name="jumlah_kepala_keluarga" tools:ignore="ExtraTranslation">Jumlah Kepala Keluarga</string>
+    <string name="_198">198</string>
+    <string name="cari_desa">Cari desa..</string>
+    <string name="hint">Cari desa..</string>
+    <string name="daftar_desa">Daftar Desa</string>
 </resources>

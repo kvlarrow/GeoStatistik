@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "802871669099",
+    "project_id": "geo-static-f7c4c",
+    "storage_bucket": "geo-static-f7c4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:802871669099:android:a4fbc974f8298dbe5b1c2e",
+        "android_client_info": {
+          "package_name": "com.example.geostatapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA29VBMDzUJyrL-akqJzPtLkqlZ4v-py2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
