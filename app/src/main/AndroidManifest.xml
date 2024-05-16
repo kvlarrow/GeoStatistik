@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeoStatApplication"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAe8BkKCPTDc9rJ51m4cGl63zrGr-tnmKE" />
         <activity
             android:name=".ui.maps.MapsActivity"
             android:exported="false" />

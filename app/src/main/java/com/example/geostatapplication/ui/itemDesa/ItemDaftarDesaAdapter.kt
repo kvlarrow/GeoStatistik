@@ -26,18 +26,18 @@ class ItemDaftarDesaAdapter(
     override fun getItemCount(): Int = listDesa.size
 
     override fun onBindViewHolder(holder: ItemDaftarDesaHolder, position: Int) {
-        val dataDesa = listDesa[position].properties
+        val dataDesa = listDesa[position]
 
-        val namaDesa = dataDesa?.nmdesa
-        val alamat = dataDesa?.nmsls
-        val jmlhKepalaKeluarga = dataDesa?.kk
+        val namaDesa = dataDesa.properties?.nmdesa
+        val alamat = dataDesa.properties?.nmsls
+        val jmlhKepalaKeluarga = dataDesa.properties?.kk
 
         holder.binding.tvNamaDesa.text = namaDesa
         holder.binding.tvAlamatDesa.text = limitWords(alamat.toString(), 8)
         holder.binding.tvJumlahKepalaKeluarga.text = jmlhKepalaKeluarga.toString()
 
         holder.binding.btnChoose.setOnClickListener {
-            onClick
+            onClick(dataDesa)
         }
     }
 
