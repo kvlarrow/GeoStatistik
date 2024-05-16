@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ApiService {
 
-    @GET("villages")
+    @GET(".json")
     fun getVillages(): Call<GeoStatResponse>
 }
