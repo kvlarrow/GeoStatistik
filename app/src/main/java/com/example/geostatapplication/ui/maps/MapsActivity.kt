@@ -2,7 +2,9 @@ package com.example.geostatapplication.ui.maps
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,16 +61,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         LAT = latD
         LON = lonD
 
+        setIndicatorBar()
         getMyLocation()
         setAction()
         setView()
 
     }
 
+    private fun setIndicatorBar() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.indent_75)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
     private fun setAction() {
         binding.btnBack.setOnClickListener {
             onBackPressed()
-            showSnackbar("Setelah : $LAT, ${LON}")
+            showSnackbar("Setelah : $LAT, $LON}")
+        }
+        binding.btnNavigasi.setOnClickListener {
+            navigateToLocation(LAT, LON)
         }
     }
 
@@ -152,6 +163,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+
+    private fun navigateToLocation(desLat: Double, desLon: Double) {
+        val gmmIntentUri = Uri.parse("google.navigation:q=$desLat,$desLon")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        if (mapIntent.resolveActivity(packageManager) != null) {
+            startActivity(mapIntent)
+        } else {
+            showSnackbar("Google Maps app is not installed.")
+        }
+    }
 
     private fun showSnackbar(message: String) {
         val rootView: View = findViewById(android.R.id.content)

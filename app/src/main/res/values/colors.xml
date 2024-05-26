@@ -3,6 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_color">#FF00AFEF</color>
-    <color name="grey">#817D7D</color>
+    <color name="grey">#FF98A2B3</color>
     <color name="transparant">#00000000</color>
+    <color name="indent_75">#26000000</color>
 </resources>
