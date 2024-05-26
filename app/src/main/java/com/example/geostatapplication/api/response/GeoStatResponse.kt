@@ -2,6 +2,7 @@ package com.example.geostatapplication.api.response
 
 import com.google.gson.annotations.SerializedName
 
+
 data class GeoStatResponse(
 
 	@field:SerializedName("features")
@@ -38,7 +39,7 @@ data class Properties(
 	val description: String? = null,
 
 	@field:SerializedName("luas")
-	val luas: Any? = null,
+	val luas: Double? = null,
 
 	@field:SerializedName("kdprov")
 	val kdprov: Int? = null,
@@ -107,6 +108,7 @@ data class Properties(
 	val bstt: Int? = null
 )
 
+
 data class FeaturesItem(
 
 	@field:SerializedName("geometry")
@@ -119,10 +121,11 @@ data class FeaturesItem(
 	val properties: Properties? = null
 )
 
+
 data class Geometry(
 
 	@field:SerializedName("coordinates")
-	val coordinates: List<List<List<Any?>?>?>? = null,
+	val coordinates: List<List<List<Any>>>? = null,
 
 	@field:SerializedName("type")
 	val type: String? = null

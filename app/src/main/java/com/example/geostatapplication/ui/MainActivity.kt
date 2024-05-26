@@ -60,12 +60,25 @@ class MainActivity : AppCompatActivity() {
             this,
             emptyList()
         ) { desa ->
-            val latitude = desa.geometry?.coordinates!![0]!![0]!![1]
-            val longitude = desa.geometry.coordinates[0]!![0]!![0]
-            Log.d(TAG, "lat = $latitude")
-            Log.d(TAG, "lon = $longitude")
-//            val intent = Intent(this, MapsActivity::class.java)
-//            startActivity(intent)
+
+            val data = desa.properties
+            val dataKordinat = desa.geometry
+            val latitude = dataKordinat?.coordinates!![0][0][1]
+            val longitude = dataKordinat.coordinates[0][0][0]
+            val lokasi = data?.nmsls
+            val provinsi = data?.nmprov
+            val kabupaten = data?.nmkab
+            val jumlahKk = data?.kk.toString()
+            val namaDesa = data?.nmdesa
+            val intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra("lokasi", lokasi)
+            intent.putExtra("provinsi", provinsi)
+            intent.putExtra("kabupaten", kabupaten)
+            intent.putExtra("jumlahKk", jumlahKk)
+            intent.putExtra("nama_desa", namaDesa)
+            intent.putExtra("lat", latitude.toString())
+            intent.putExtra("lon", longitude.toString())
+            startActivity(intent)
         }
         binding.rvDaftarDesa.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -83,7 +96,7 @@ class MainActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val desa = response.body()?.features
                         Log.d(TAG, "Tampilkan : ${desa?.toString()}")
-                        fullListDesa = (desa ?: emptyList()) as List<FeaturesItem>
+                        fullListDesa = desa as List<FeaturesItem>
                         desaAdapter.updateDataDesa(fullListDesa)
                     }
                 }
