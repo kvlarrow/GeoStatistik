@@ -159,7 +159,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
 
                 else -> {
-                    // No location access granted.
+                    showSnackbar("Error menemukan lokasi")
                 }
             }
         }
