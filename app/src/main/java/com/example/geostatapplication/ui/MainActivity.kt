@@ -6,8 +6,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.geostatapplication.R
 import com.example.geostatapplication.api.config.ApiConfig
 import com.example.geostatapplication.api.response.FeaturesItem
 import com.example.geostatapplication.api.response.GeoStatResponse
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setIndicatorBar()
         setRecyclerView()
         getVilages()
         setAction()
@@ -55,17 +60,35 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setIndicatorBar() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.indent_75)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
     private fun setRecyclerView() {
         desaAdapter = ItemDaftarDesaAdapter(
             this,
             emptyList()
         ) { desa ->
-            val latitude = desa.geometry?.coordinates!![0]!![0]!![1]
-            val longitude = desa.geometry.coordinates[0]!![0]!![0]
-            Log.d(TAG, "lat = $latitude")
-            Log.d(TAG, "lon = $longitude")
-//            val intent = Intent(this, MapsActivity::class.java)
-//            startActivity(intent)
+
+            val data = desa.properties
+            val dataKordinat = desa.geometry
+            val latitude = dataKordinat?.coordinates!![0][0][1]
+            val longitude = dataKordinat.coordinates[0][0][0]
+            val lokasi = data?.nmsls
+            val provinsi = data?.nmprov
+            val kabupaten = data?.nmkab
+            val jumlahKk = data?.kk.toString()
+            val namaDesa = data?.nmdesa
+            val intent = Intent(this, MapsActivity::class.java)
+            intent.putExtra("lokasi", lokasi)
+            intent.putExtra("provinsi", provinsi)
+            intent.putExtra("kabupaten", kabupaten)
+            intent.putExtra("jumlahKk", jumlahKk)
+            intent.putExtra("nama_desa", namaDesa)
+            intent.putExtra("lat", latitude.toString())
+            intent.putExtra("lon", longitude.toString())
+            startActivity(intent)
         }
         binding.rvDaftarDesa.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -74,6 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getVilages() {
+        showLoading(true)
         ApiConfig.instanceRetrofit.getVillages().enqueue(
             object : Callback<GeoStatResponse>{
                 override fun onResponse(
@@ -81,15 +105,20 @@ class MainActivity : AppCompatActivity() {
                     response: Response<GeoStatResponse>
                 ) {
                     if (response.isSuccessful) {
+                        showLoading(false)
                         val desa = response.body()?.features
                         Log.d(TAG, "Tampilkan : ${desa?.toString()}")
-                        fullListDesa = (desa ?: emptyList()) as List<FeaturesItem>
+                        fullListDesa = desa as List<FeaturesItem>
                         desaAdapter.updateDataDesa(fullListDesa)
+                    } else {
+                        Log.d(TAG, "onFailure: ${response.message()}")
+                        showSnackbar("Gagal Mendapatkan Data")
                     }
                 }
 
                 override fun onFailure(call: Call<GeoStatResponse>, t: Throwable) {
                     Log.e(TAG, t.message.toString())
+                    showSnackbar("Gagal Mendapatkan Data")
                 }
 
             }
@@ -100,5 +129,18 @@ class MainActivity : AppCompatActivity() {
         val rootView: View = findViewById(android.R.id.content)
         val snackbar = Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT)
         snackbar.show()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        when(isLoading) {
+            true -> {
+                binding.shimmerView.isVisible = true
+                binding.rvDaftarDesa.isGone = true
+            }
+            else -> {
+                binding.shimmerView.isGone = true
+                binding.rvDaftarDesa.isVisible = true
+            }
+        }
     }
 }

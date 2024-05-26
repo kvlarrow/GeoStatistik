@@ -10,4 +10,6 @@
     <string name="daftar_desa">Daftar Desa</string>
     <string name="lorem_ipsum">Lorem Ipsum</string>
     <string name="nama_desa">Nama Desa</string>
+    <string name="jumlah_kepala_keluarga_q">Jumlah Kepala Keluarga :</string>
+    <string name="navigasi">Navigasi</string>
 </resources>
