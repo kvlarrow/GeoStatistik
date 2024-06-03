@@ -39,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setIndicatorBar()
+        //setIndicatorBar()
+        hideIndicatorBar()
         setRecyclerView()
         getVilages()
         setAction()
@@ -61,8 +62,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setIndicatorBar() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.indent_75)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    private fun hideIndicatorBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
     }
 
     private fun setRecyclerView() {

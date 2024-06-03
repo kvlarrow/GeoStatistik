@@ -61,7 +61,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         LAT = latD
         LON = lonD
 
-        setIndicatorBar()
+//        setIndicatorBar()
+        hideIndicatorBar()
         getMyLocation()
         setAction()
         setView()
@@ -69,8 +70,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun setIndicatorBar() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.indent_75)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+
+    private fun hideIndicatorBar() {
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
     }
 
     private fun setAction() {
@@ -92,9 +98,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val jumlahKk = intent.getStringExtra("jumlahKk")
         val namaDesa = intent.getStringExtra("nama_desa")
 
-        binding.tvLokasiDesa.text = "Lokasi : $lokasi"
-        binding.tvProvinsi.text = "Provinsi : $provinsi"
-        binding.tvKabupaten.text = "Kabupaten : $kabupaten"
+        binding.tvLokasiDesa.text = "Lokasi : ${capitalizeWords(lokasi!!)}"
+        binding.tvProvinsi.text = "Provinsi : ${capitalizeWords(provinsi!!)}"
+        binding.tvKabupaten.text = "Kabupaten : ${capitalizeWords(kabupaten!!)}"
         binding.tvJumlahKepalaKeluarga.text = jumlahKk
         binding.tvNamaDesa.text = capitalizeWords(namaDesa!!)
     }
