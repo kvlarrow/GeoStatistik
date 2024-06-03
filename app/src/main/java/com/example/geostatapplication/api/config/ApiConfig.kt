@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiConfig {
-    private const val BASE_URL = "https://geo-static-f7c4c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    private const val BASE_URL = "https://jakpost.vercel.app/api/"
     private val client: Retrofit
         get() {
             val gson = GsonBuilder()
